@@ -23,15 +23,6 @@
             top: 0;
             left: 0;
         }
-        #purpleScreen {
-            width: 100%;
-            height: 100%;
-            background-color: purple;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: none;
-        }
         #imageDisplay {
             width: 100%;
             height: 100%;
@@ -46,14 +37,12 @@
 </head>
 <body>
     <div id="neutraal"></div>
-    <div id="purpleScreen"></div>
     <img id="imageDisplay" src="" alt="Random Image">
     <script>
-        const arrowImages = ['img_woning/connectiehuizen.png', 'img_woning/connectiezendmasten.png'];
+        const arrowImages = ['img_torens/connectiezendmasten.png'];
         const bonusImages = ['img_bonus/bonusoptioneeldobbelen.png', 'img_bonus/bonusoptioneeldraaien.png', 'img_bonus/bonusoptioneelteleportatie.png', 'img_bonus/bonusoptioneelwisselen.png', 'img_bonus/bonusverplichtdobbelen.png', 'img_bonus/bonusverplichtdraaien.png', 'img_bonus/bonusverplichtteleportatie.png', 'img_bonus/bonusverplichtwisselen.png'];
         const towersImages = ['img_torens/connectiezendmasten.png'];
         const neutraal = document.getElementById('neutraal');
-        const purpleScreen = document.getElementById('purpleScreen');
         const imageDisplay = document.getElementById('imageDisplay');
         let isDisplaying = false;
         let timeoutId = null;
@@ -77,7 +66,6 @@
                 timeoutId = setTimeout(() => {
                     imageDisplay.style.display = 'none';
                     neutraal.style.display = 'block';
-                    purpleScreen.style.display = 'none';
                     isDisplaying = false;
                     timeoutId = null;
                 }, 10000); // 10 seconden
@@ -90,7 +78,6 @@
                 timeoutId = null;
                 imageDisplay.style.display = 'none';
                 neutraal.style.display = 'block';
-                purpleScreen.style.display = 'none';
                 isDisplaying = false;
             }
         });

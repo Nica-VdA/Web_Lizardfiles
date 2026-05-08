@@ -37,30 +37,33 @@
 </head>
 <body>
     <div id="neutraal"></div>
-    <img id="imageDisplay" src="" alt="Random Image">
+    <img id="imageDisplay" src="" alt="image woningen">
     <script>
-        const arrowImages = ['img_torens/connectiezendmasten.png'];
+        const arrowImages = ['img_woning/connectiehuizen.png'];
         const bonusImages = ['img_bonus/bonusoptioneeldobbelen.png', 'img_bonus/bonusoptioneeldraaien.png', 'img_bonus/bonusoptioneelteleportatie.png', 'img_bonus/bonusoptioneelwisselen.png', 'img_bonus/bonusverplichtdobbelen.png', 'img_bonus/bonusverplichtdraaien.png', 'img_bonus/bonusverplichtteleportatie.png', 'img_bonus/bonusverplichtwisselen.png'];
         const towersImages = ['img_torens/connectiezendmasten.png'];
         const neutraal = document.getElementById('neutraal');
         const imageDisplay = document.getElementById('imageDisplay');
         let isDisplaying = false;
         let timeoutId = null;
+        let honingIndex = 0;
 
         document.addEventListener('keydown', function(event) {
             if ((event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'ArrowLeft') && !isDisplaying) {
                 event.preventDefault();
                 isDisplaying = true;
-                let currentImages;
+                let imageToShow;
                 if (event.code === 'Space') {
-                    currentImages = towersImages;
+                    const randomTower = towersImages[Math.floor(Math.random() * towersImages.length)];
+                    imageToShow = randomTower;
                 } else if (event.code === 'ArrowUp') {
-                    currentImages = arrowImages;
+                    imageToShow = arrowImages[honingIndex];
+                    honingIndex = (honingIndex + 1) % arrowImages.length;
                 } else if (event.code === 'ArrowLeft') {
-                    currentImages = bonusImages;
+                    const randomBonus = bonusImages[Math.floor(Math.random() * bonusImages.length)];
+                    imageToShow = randomBonus;
                 }
-                const randomImage = currentImages[Math.floor(Math.random() * currentImages.length)];
-                imageDisplay.src = randomImage;
+                imageDisplay.src = imageToShow;
                 imageDisplay.style.display = 'block';
                 neutraal.style.display = 'none';
                 timeoutId = setTimeout(() => {

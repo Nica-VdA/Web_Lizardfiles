@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Image Viewer</title>
+    <title>Lizard Files</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
+            background-color: #bf910a;
         }
-        #greenScreen {
+        #neutraal {
             width: 100%;
             height: 100%;
-            background-color: green;
+            background-image: url('img_neutraal/neutraal.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             position: absolute;
             top: 0;
             left: 0;
@@ -36,67 +40,43 @@
             left: 0;
             display: none;
             object-fit: contain;
-        }
-        #exitButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 10px 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-            z-index: 10;
+            background-color: #bf910a;
         }
     </style>
 </head>
 <body>
-    <div id="greenScreen"></div>
+    <div id="neutraal"></div>
     <div id="purpleScreen"></div>
     <img id="imageDisplay" src="" alt="Random Image">
-    <button id="exitButton">Verlaat dit scherm</button>
     <script>
-        const images = ['img_test1/a.jpg', 'img_test1/b.jpg', 'img_test1/c.jpg', 'img_test1/d.jpg'];
-        const arrowImages = ['img_pijl/Screenshot_20240423_084553_Instagram.jpg', 'img_pijl/Screenshot_20240423_084602_Instagram.jpg', 'img_pijl/Screenshot_20240423_084607_Instagram.jpg', 'img_pijl/Screenshot_20240423_084610_Instagram.jpg'];
-        const greenScreen = document.getElementById('greenScreen');
+        const arrowImages = ['img_woning/connectiehuizen.png', 'img_woning/connectiezendmasten.png'];
+        const bonusImages = ['img_bonus/bonusoptioneeldobbelen.png', 'img_bonus/bonusoptioneeldraaien.png', 'img_bonus/bonusoptioneelteleportatie.png', 'img_bonus/bonusoptioneelwisselen.png', 'img_bonus/bonusverplichtdobbelen.png', 'img_bonus/bonusverplichtdraaien.png', 'img_bonus/bonusverplichtteleportatie.png', 'img_bonus/bonusverplichtwisselen.png'];
+        const towersImages = ['img_torens/connectiezendmasten.png'];
+        const neutraal = document.getElementById('neutraal');
         const purpleScreen = document.getElementById('purpleScreen');
         const imageDisplay = document.getElementById('imageDisplay');
-        const exitButton = document.getElementById('exitButton');
         let isDisplaying = false;
         let timeoutId = null;
 
-        exitButton.addEventListener('click', () => {
-            if (isDisplaying) {
-                clearTimeout(timeoutId);
-                timeoutId = null;
-                imageDisplay.style.display = 'none';
-                exitButton.style.display = 'none';
-                greenScreen.style.display = 'none';
-                purpleScreen.style.display = 'block';
-                isDisplaying = false;
-            }
-        });
-
         document.addEventListener('keydown', function(event) {
-            if ((event.code === 'Space' || event.code === 'ArrowUp') && !isDisplaying) {
+            if ((event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'ArrowLeft') && !isDisplaying) {
                 event.preventDefault();
                 isDisplaying = true;
                 let currentImages;
                 if (event.code === 'Space') {
-                    currentImages = images;
+                    currentImages = towersImages;
                 } else if (event.code === 'ArrowUp') {
                     currentImages = arrowImages;
+                } else if (event.code === 'ArrowLeft') {
+                    currentImages = bonusImages;
                 }
                 const randomImage = currentImages[Math.floor(Math.random() * currentImages.length)];
                 imageDisplay.src = randomImage;
                 imageDisplay.style.display = 'block';
-                exitButton.style.display = 'block';
-                greenScreen.style.display = 'none';
+                neutraal.style.display = 'none';
                 timeoutId = setTimeout(() => {
                     imageDisplay.style.display = 'none';
-                    exitButton.style.display = 'none';
-                    greenScreen.style.display = 'block';
+                    neutraal.style.display = 'block';
                     purpleScreen.style.display = 'none';
                     isDisplaying = false;
                     timeoutId = null;
@@ -105,12 +85,11 @@
         });
 
         document.addEventListener('keyup', function(event) {
-            if ((event.code === 'Space' || event.code === 'ArrowUp') && isDisplaying) {
+            if ((event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'ArrowLeft') && isDisplaying) {
                 clearTimeout(timeoutId);
                 timeoutId = null;
                 imageDisplay.style.display = 'none';
-                exitButton.style.display = 'none';
-                greenScreen.style.display = 'block';
+                neutraal.style.display = 'block';
                 purpleScreen.style.display = 'none';
                 isDisplaying = false;
             }
